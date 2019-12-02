@@ -29,3 +29,9 @@
 .calendar_othermonth .calendar_day {
     opacity :0.3;
 }
+
+#add-btn:hover{
+    background-color: #FB8B24;
+    border-color: #FB8B24;
+    color :white;
+}

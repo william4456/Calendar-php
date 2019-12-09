@@ -35,3 +35,17 @@
     border-color: #FB8B24;
     color :white;
 }
+
+.card{
+    margin-top : 20px;
+}
+
+.card-body{
+    width:400px;
+}
+
+#event {
+    margin-bottom : 2px;
+    margin-top : 2px;
+
+}

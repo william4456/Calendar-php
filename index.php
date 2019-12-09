@@ -7,8 +7,9 @@
     <title>Calendrier</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 
@@ -25,21 +26,24 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" action="form.php">
-                        Nom:<br>
-                        <input type="text" name="name">
-                        <br>
-                        Description:<br>
-                        <input type="text" name="resume">
-                        <br>
-                        Date:<br>
-                        <input type="text" name="date">
-                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nom</label>
+                            <input name="name" class="form-control" id="exampleInputEmail1" placeholder="Nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Description</label>
+                            <input type="text" name="description" class="form-control" id="exampleInputPassword1" placeholder="Description">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Date (format année-mois-jour)</label>
+                            <input type="text" name="date" class="form-control" id="exampleInputEmail1" placeholder="Date">
+                        </div>
                         <input type="submit" name="save" value="submit">
+
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ferme</button>
-                    <button type="button" class="btn btn-primary">Sauvegarder</button>
+                    <button type="submit" name="save" class="btn btn-primary">Sauvegarder</button>
                 </div>
             </div>
         </div>
@@ -77,12 +81,18 @@
                                 <div class="calendar_weekday"><?= $day; ?></div>
                             <?php endif; ?>
 
-                            <div class="calendar_day"><?= $date->format('d'); ?>
+                            <div class="calendar_day">
+                                <?= $date->format('d'); ?>
+                                <br>
                                 <?php
                                         $reponse = $bdd->query('SELECT * FROM events');
                                         while ($donnees = $reponse->fetch()) {
                                             if (date("d-m-Y", strtotime($donnees['date'])) == $date->format('d-m-Y')) { ?>
-                                        <p><?= $donnees['name']; ?></p>
+                                        <a href="event.php?id=<?php echo $donnees['id']; ?>">
+                                            <button id="event" type="button" class="btn btn-primary">
+                                                <?php echo $donnees['description']; ?>
+                                            </button>
+                                        </a>
                                 <?php }
                                         }
                                         ?>
